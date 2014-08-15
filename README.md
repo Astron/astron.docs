@@ -1,3 +1,3 @@
 Astron Documentation
 ====================
-_Raw and source files for Astron documetation_
+_Raw and source files for Astron documentation_
