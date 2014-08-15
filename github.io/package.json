@@ -1,0 +1,19 @@
+{
+  "name": "astron.github.io",
+  "readme": "README.md",
+  "dependencies": {
+    "gulp":             "^3.8.5",
+    "gulp-util":        "^2.2.19",
+    "run-sequence":     "^0.3.6",
+    "gulp-clean":       "^0.3.1",
+    "gulp-concat":      "^2.2.0",
+    "gulp-ng-html2js":  "^0.1.7",
+    "gulp-minify-html": "^0.1.4",
+    "gulp-uglify":      "^0.3.1",
+    "gulp-less":        "^1.3.1",
+    "connect":          "^3.0.0",
+    "connect-history-api-fallback": "^0.0.4",
+    "gulp-changed":     "^0.4.0",
+    "serve-static":     "^1.2.3"
+  }
+}
