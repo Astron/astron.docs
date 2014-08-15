@@ -1,10 +1,10 @@
-## How to edit the docs
+## Editing the Docs
 
 The docs live in `public/docs/<language>/<version>` as markdown files.  
 They can be edited through Git, or using GitHub's on-site editing tool.  
 Please fork the repository, and make a pull request after you have made changes.
 
-## How to develop astron.github.io
+## Developing astron.github.io
 
 Install `node.js` via package manager or from [npmjs.org](https://npmjs.org)
 
