@@ -2,7 +2,7 @@
 
 The docs live in `public/docs/<language>/<version>` as markdown files.  
 They can be edited through Git, or using GitHub's on-site editing tool.  
-Please fork the repository, and make a pull request after you have made changes.
+Please fork the repository; make your changes; then submit a pull request when you're done.
 
 ## Developing astron.github.io
 
