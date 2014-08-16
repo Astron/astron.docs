@@ -4,7 +4,6 @@
 //    clean - remove any build artifacts
 //
 
-
 (function() {
   'use strict';
 
@@ -46,8 +45,10 @@
     js:   'site/**/*.js',
 
     home:     'site/index.html',
+    style:    'site/astron.less',
     template: 'site/template.html',
-    markdown: paths.docs + '**/**/*.md',
+    images:   'public/**',
+    markdown: paths.docs + '/**/**/*.md',
     pages:    paths.pages + '/**/**/*.html'
   }
 
@@ -58,7 +59,7 @@
 
   // Compiles the full site into the build directory
   gulp.task('build', function() {
-    sequence('clean', 'render-index', 'render-markdown', 'render-less', 'copy-js');
+    sequence('clean', 'render-index', 'render-markdown', 'render-less', 'copy-js', 'copy-public');
   });
 
   // Renders the markdown docs into html
@@ -71,6 +72,9 @@
             return gulp.src(files.template)
                        .pipe(replace(/@markdown/, file.path))
                        .pipe(render('%%'))
+                       .on('error', function(error) {
+                          util.log('Error in', util.colors.cyan('render-markdown'), error.message);
+                        })
                        .pipe(rename(path.relative(file.base, file.path)));
          }))
         .pipe(gulp.dest(paths.website));
@@ -78,10 +82,12 @@
 
   // Renders the less files into a single css file
   gulp.task('render-less', function() {
-    gulp.src(files.less)
+    gulp.src(files.style)
         .pipe(less())
-        .on('error', function(error) { util.log(error.message); })
-        .pipe(concat('site/css/astron.css'))
+        .on('error', function(error) {
+           util.log('Error in', util.colors.cyan('render-less'), error.message);
+         })
+        .pipe(rename(function(path) { path.dirname += '/site/css' }))
         .pipe(gulp.dest(paths.build));
   });
 
@@ -89,12 +95,22 @@
   gulp.task('render-index', function() {
     gulp.src(files.home)
         .pipe(render('%%'))
+        .on('error', function(error) {
+           util.log('Error in', util.colors.cyan('render-index'), error.message);
+         })
         .pipe(gulp.dest(paths.website));
   });
 
   // Copy the javascript files to build
   gulp.task('copy-js', function() {
     gulp.src(files.js)
+        .pipe(changed(paths.website))
+        .pipe(gulp.dest(paths.website));
+  });
+
+  // Copy the other resource files to build
+  gulp.task('copy-public', function() {
+    gulp.src(files.images)
         .pipe(changed(paths.website))
         .pipe(gulp.dest(paths.website));
   });
