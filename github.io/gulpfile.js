@@ -45,7 +45,7 @@
     less: 'site/**/*.less',
     js:   'site/**/*.js',
 
-    index:    'site/index.html',
+    home:     'site/index.html',
     template: 'site/template.html',
     markdown: paths.docs + '**/**/*.md',
     pages:    paths.pages + '/**/**/*.html'
@@ -58,7 +58,7 @@
 
   // Compiles the full site into the build directory
   gulp.task('build', function() {
-    sequence('clean', 'render-markdown', 'render-less', 'copy-index', 'copy-js');
+    sequence('clean', 'render-index', 'render-markdown', 'render-less', 'copy-js');
   });
 
   // Renders the markdown docs into html
@@ -80,13 +80,14 @@
   gulp.task('render-less', function() {
     gulp.src(files.less)
         .pipe(less())
+        .on('error', function(error) { util.log(error.message); })
         .pipe(concat('site/css/astron.css'))
         .pipe(gulp.dest(paths.build));
   });
 
-  // Copy the homepage to build
-  gulp.task('copy-index', function() {
-    gulp.src(files.index)
+  // Renders the homepage from templates and partials
+  gulp.task('render-index', function() {
+    gulp.src(files.home)
         .pipe(render('%%'))
         .pipe(gulp.dest(paths.website));
   });
@@ -115,8 +116,9 @@
 
   // Watch files and re-build as necessary while server is running
   gulp.task('watch', function() {
+    gulp.watch(files.home,     ['render-index'])
     gulp.watch(files.markdown, ['render-markdown']);
-    gulp.watch(files.html,     ['render-markdown']);
+    gulp.watch(files.html,     ['render-markdown', 'render-index']);
     gulp.watch(files.less,     ['render-less']);
     gulp.watch(files.js,       ['copy-js']);
   });
