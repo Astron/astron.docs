@@ -1,0 +1,43 @@
+@import (reference) "base.less";
+
+// Box sizes
+@footer-height: 100px;
+@backfade-height: 300px;
+
+footer {
+  position: fixed;
+  bottom: 0; left: 0;
+
+  width: 100%;
+  height: @footer-height;
+
+  background-color: @navigation;
+  box-shadow: inset 0 4px 9px -3px;
+}
+
+.backfade {
+  position: fixed;
+  bottom: @footer-height; left: 0%;
+
+  width: 100%;
+  height: @backfade-height;
+
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAJklEQVQIW2NkgIL/x1v+M1rWMML4IBrOwSoJEkRWTbxO8u3EpxMAN7gbUSPWOAQAAAAASUVORK5CYII=)
+              repeat;
+}
+.backfade::after {
+  content: '';
+
+  position: fixed;
+  bottom: @footer-height; left: 0%;
+
+  width: 100%;
+  height: @backfade-height;
+
+  background: rgba(27, 27, 27, 0.9);
+  background: linear-gradient(top, rgba(27, 27, 27, 255) 0%, rgba(27, 27, 27, 1) 100% );
+  background: -moz-linear-gradient(top, rgba( 255, 255, 255, 0) 0%, rgba( 255, 255, 255, 1 ) 100% );
+  background: -ms-linear-gradient(top, rgba( 255, 255, 255, 0 ) 0%, rgba( 255, 255, 255, 1 ) 100% );
+  background: -o-linear-gradient( top, rgba( 255, 255, 255, 0 ) 0%, rgba( 255, 255, 255, 1 ) 100% );
+  background: -webkit-linear-gradient( top, rgba( 27, 27, 27, 1.0 ) 0%, rgba( 27, 27, 27, 0.8 ) 100% );
+}
