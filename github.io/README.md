@@ -1,6 +1,6 @@
 ## Editing the Docs
 
-The docs live in `public/docs/<language>/<version>` as markdown files.  
+The docs live in `docs/<language>/<version>` as markdown files.  
 They can be edited through Git, or using GitHub's on-site editing tool.  
 Please fork the repository; make your changes; then submit a pull request when you're done.
 
@@ -25,6 +25,6 @@ cd astron.docs/github.io
 npm install
 ```
 
-Run local server for development: `gulp dev`
+Run local server for development: `gulp run`
 
 Make a build for [astron.github.io](https://astron.github.io) with `gulp build`
