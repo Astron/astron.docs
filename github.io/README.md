@@ -21,7 +21,7 @@ Install the `gulp` build tool
 ```sh
 [sudo] npm install -g gulp
 
-cd documentation/github.io
+cd astron.docs/github.io
 npm install
 ```
 
