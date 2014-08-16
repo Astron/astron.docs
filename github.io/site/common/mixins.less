@@ -1,0 +1,23 @@
+//
+// Mixins
+// --------------------------------------------------
+
+// Gradients
+// -------------------------
+#gradient {
+  .vertical(@start; @end; @from: 0%; @to: 100%) {
+    background-image: -webkit-linear-gradient(top, @start @from, @end @to);
+    background-image:    -moz-linear-gradient(top, @start @from, @end @to);
+    background-image:     -ms-linear-gradient(top, @start @from, @end @to);
+    background-image:      -o-linear-gradient(top, @start @from, @end @to);
+    background-image:         linear-gradient(to bottom, @start @from, @end @to);
+  }
+
+  .horizontal-in-out(@inside, @outside, @left: 0%, @mid: 50%, @right: 100%) {
+    background-image: -webkit-linear-gradient(left, @outside @left, @inside @mid, @outside @right);
+    background-image:    -moz-linear-gradient(left, @outside @left, @inside @mid, @outside @right);
+    background-image:     -ms-linear-gradient(left, @outside @left, @inside @mid, @outside @right);
+    background-image:      -o-linear-gradient(left, @outside @left, @inside @mid, @outside @right);
+    background-image:         linear-gradient(left, @outside @left, @inside @mid, @outside @right);
+  }
+}

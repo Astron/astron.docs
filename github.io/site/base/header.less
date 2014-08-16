@@ -1,0 +1,58 @@
+//
+// Header
+// --------------------------------------------------
+
+header {
+  position: relative;
+  z-index: @layer-header;
+
+  width: 100%;
+  height: 80px;
+
+  background-color: @navigation;
+  border-bottom: @accent-primary solid 10px;
+}
+
+#banner {
+  display: inline-block;
+  padding: 20px 2px;
+  background-color: @navigation-logo;
+  background-clip: padding-box;
+
+  border: rgba(67,67,67,0.3) 7px solid;
+  border-top: none;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+#banner img {
+  width: 350px;
+  height: auto;
+}
+
+hr.top {
+  position: relative;
+  z-index: @layer-header-bg;
+
+  border: 0;
+  height: 1px;
+  margin-top: 90px;
+
+  #gradient > .horizontal-in-out(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.0), 5%, 50%, 95%);
+
+  @media (min-width: @sm-media-min) { width: @sm-content; }
+  @media (min-width: @md-media-min) { width: @md-content; }
+  @media (min-width: @lg-media-min) { width: @lg-content; }
+}
+hr.top::after {
+  content: '';
+  display: block;
+  z-index: @layer-header-bg;
+
+  height: 100px;
+
+  @media (min-width: @sm-media-min) { width: @sm-content; }
+  @media (min-width: @md-media-min) { width: @md-content; }
+  @media (min-width: @lg-media-min) { width: @lg-content; }
+
+  background: radial-gradient(ellipse at top,  rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.0) 65%);
+}

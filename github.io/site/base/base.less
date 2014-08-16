@@ -1,0 +1,19 @@
+//
+// Base - core page elements (body, ... and stuff ... )
+// --------------------------------------------------
+
+body {
+  margin: 0;
+  background-color: @background;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: @gutter-size;
+  padding-right: @gutter-size;
+
+  @media (min-width: @sm-media-min) { width: @sm-content; }
+  @media (min-width: @md-media-min) { width: @md-content; }
+  @media (min-width: @lg-media-min) { width: @lg-content; }
+}
