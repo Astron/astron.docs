@@ -4,8 +4,18 @@
 
 body {
   margin: 0;
+
+  color: @text;
+  font-family: @font-primary;
   background-color: @background;
 }
+
+p  { color: inherit; }
+a  { color: @text-a; text-decoration: none; }
+
+h1, h2, h3, h4, h5, h6 { margin: 0; }
+h1 { font-size: 3em; color: @text-h1; }
+h2 { font-size: 2em; }
 
 .container {
   margin-left: auto;
@@ -16,4 +26,8 @@ body {
   @media (min-width: @sm-media-min) { width: @sm-content; }
   @media (min-width: @md-media-min) { width: @md-content; }
   @media (min-width: @lg-media-min) { width: @lg-content; }
+}
+
+.content {
+  background-color: @content;
 }

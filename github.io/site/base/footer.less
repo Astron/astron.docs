@@ -6,8 +6,6 @@
 // Variables for footer elements
 
 @footer-height: 100px;
-@backfade-height: 250px;
-
 
 // The footer is at the end of each page and contains things like copyright.
 
@@ -22,20 +20,35 @@ footer {
   box-shadow: inset 0 4px 9px -3px @shadow-dark;
 }
 
+#copyright {
+  padding: 1em;
 
-// Immediately adjacent to the footer is this backfade element.
+  color: @text-muted;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+// Immediately above the footer is this backfade element.
 // The backfade is a decorative div that overlays the background of the base page.
 //
 // The main backfade has a background that is a plain colored grid matching the @accent-light color.
 // The backfade element produces a ::before which is a semi-transparent gradient over the
 // normal backfade div.  This gives the grid the impression of being faded out up the page.
 
-.backfade {
+#backfade-anchor {
   position: relative;
   z-index: @layer-footer-bg;
 
   width: 100%;
-  height: @backfade-height;
+  height: 50px;
+}
+.backfade {
+  position: absolute;
+  bottom: 0;
+  z-index: @layer-footer-bg;
+
+  width: 100%;
+  height: @bg-height-lower;
 
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAJklEQVQIW2NkgIL/x1v+M1rWMML4IBrOwSoJEkRWTbxO8u3EpxMAN7gbUSPWOAQAAAAASUVORK5CYII=)
               repeat;
@@ -46,7 +59,7 @@ footer {
   z-index: @layer-footer-bg;
 
   width: 100%;
-  height: @backfade-height;
+  height: @bg-height-lower;
 
   #gradient > .vertical(rgba(27, 27, 27, 1.0), rgba(27, 27, 27, 0.8));
 }
