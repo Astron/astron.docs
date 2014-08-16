@@ -9,11 +9,10 @@
 @backfade-height: 250px;
 
 
-// The footer is a fixed div attached at the bottom of the screen for things like copyright.
+// The footer is at the end of each page and contains things like copyright.
 
 footer {
-  position: fixed;
-  bottom: 0; left: 0;
+  position: relative;
   z-index: @layer-footer;
 
   width: 100%;
@@ -32,8 +31,7 @@ footer {
 // normal backfade div.  This gives the grid the impression of being faded out up the page.
 
 .backfade {
-  position: fixed;
-  bottom: @footer-height; left: 0%;
+  position: relative;
   z-index: @layer-footer-bg;
 
   width: 100%;
@@ -44,9 +42,7 @@ footer {
 }
 .backfade::before {
   content: '';
-
-  position: fixed;
-  bottom: @footer-height; left: 0%;
+  position: absolute;
   z-index: @layer-footer-bg;
 
   width: 100%;
