@@ -44,12 +44,12 @@
     less: 'site/**/*.less',
     js:   'site/**/*.js',
 
-    home:     'site/index.html',
-    style:    'site/astron.less',
-    template: 'site/template.html',
-    images:   'public/**',
-    markdown: paths.docs + '/**/**/*.md',
-    pages:    paths.pages + '/**/**/*.html'
+    home:      'site/index.html',
+    style:     'site/astron.less',
+    template:  'site/template.html',
+    resources: 'resources/**',
+    markdown:  paths.docs + '/**/**/*.md',
+    pages:     paths.pages + '/**/**/*.html'
   }
 
   // Run a local webserver, continously rebuild the site
@@ -59,7 +59,7 @@
 
   // Compiles the full site into the build directory
   gulp.task('build', function() {
-    sequence('clean', 'render-index', 'render-markdown', 'render-less', 'copy-js', 'copy-public');
+    sequence('clean', 'render-index', 'render-markdown', 'render-less', 'copy-js', 'copy-files');
   });
 
   // Renders the markdown docs into html
@@ -109,8 +109,8 @@
   });
 
   // Copy the other resource files to build
-  gulp.task('copy-public', function() {
-    gulp.src(files.images)
+  gulp.task('copy-files', function() {
+    gulp.src(files.resources)
         .pipe(changed(paths.website))
         .pipe(gulp.dest(paths.website));
   });
