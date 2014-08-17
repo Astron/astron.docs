@@ -18,7 +18,7 @@ h1, h2, h3, h4, h5, h6 { margin: 0; }
 h1 { font-size:   3em; color: @text-head; }
 h2 { font-size:   2em; color: @text-head; }
 h3 { font-size: 1.5em; color: inherit; }
-h3 { font-size: 1.2em; color: inherit; }
+h4 { font-size: 1.2em; color: inherit; }
 
 .container {
   margin-left: auto;
@@ -41,7 +41,15 @@ h3 { font-size: 1.2em; color: inherit; }
   margin-bottom: @gutter-size;
 
   color: #ddd;
-  font-size: 4em;
+  font-size: 3.5em;
   font-weight: 300;
   text-align: center;
+}
+
+.justified {
+  margin: 32px auto;
+
+  @media (min-width: @sm-media-min) { width: @sm-justified; }
+  @media (min-width: @md-media-min) { width: @md-justified; }
+  @media (min-width: @lg-media-min) { width: @lg-justified; }
 }
