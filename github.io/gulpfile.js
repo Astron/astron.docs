@@ -33,7 +33,7 @@
   var paths = {
     docs:      'docs',
     build:     'build',
-    pages:     'build/pages',
+    render:    'build/render',
     website:   'build/site',
     templates: 'templates'
   }
@@ -44,13 +44,13 @@
     less: 'site/**/*.less',
     js:   'site/**/*.js',
 
-    home:      'site/index.html',
     style:     'site/*.less',
     template:  'site/template.html',
     resources: 'resources/**',
-    astronDocs: paths.docs + '/astron/**/*.md',
-    bambooDocs: paths.docs + '/bamboo/**/*.md',
-    pages:      paths.pages + '/**/**/*.html'
+    astronDocs: paths.docs   + '/astron/**/*.md',
+    bambooDocs: paths.docs   + '/bamboo/**/*.md',
+    renderDocs: paths.render + '/**/**/*.html',
+    pages: ['site/index.html', 'site/astron/index.html', 'site/bamboo/index.html']
   }
 
   // Run a local webserver, continously rebuild the site
@@ -68,7 +68,7 @@
   gulp.task('render-astron', function() {
     gulp.src(files.astronDocs, { base: paths.docs })
         .pipe(markdown())
-        .pipe(gulp.dest(paths.pages))
+        .pipe(gulp.dest(paths.render))
         .pipe(foreach(function(stream, file) {
             var pageTitle = path.basename(file.path, '.html');
             if(pageTitle === 'index') { pageTitle = 'a distributed object-oriented game server'; }
@@ -90,7 +90,7 @@
   gulp.task('render-bamboo', function() {
     gulp.src(files.bambooDocs, { base: paths.docs })
         .pipe(markdown())
-        .pipe(gulp.dest(paths.pages))
+        .pipe(gulp.dest(paths.render))
         .pipe(foreach(function(stream, file) {
             var pageTitle = path.basename(file.path, '.html');
             if(pageTitle === 'index') { pageTitle = 'object-oriented protocols'; }
@@ -121,12 +121,19 @@
 
   // Renders the homepage from templates and partials
   gulp.task('render-index', function() {
-    gulp.src(files.home)
-        .pipe(render('%%'))
-        .on('error', function(error) {
-           util.log('Error in', util.colors.cyan('render-index'), error.message);
-         })
-        .pipe(gulp.dest(paths.website));
+    function buildPage(page) {
+      gulp.src('site/' + page)
+          .pipe(render({ prefix: '%%', basepath: process.cwd() + '/site' }))
+          .on('error', function(error) {
+             util.log('Error in', util.colors.cyan('render-index'), error.message);
+           })
+          .pipe(rename(page))
+          .pipe(gulp.dest(paths.website));
+    }
+
+    buildPage('index.html');
+    buildPage('astron/index.html');
+    buildPage('bamboo/index.html');
   });
 
   // Copy the javascript files to build
@@ -160,7 +167,7 @@
 
   // Watch files and re-build as necessary while server is running
   gulp.task('watch', function() {
-    gulp.watch(files.home,       ['render-index']);
+    gulp.watch(files.pages       ['render-index']);
     gulp.watch(files.astronDocs, ['render-astron']);
     gulp.watch(files.bambooDocs, ['render-bamboo']);
     gulp.watch(files.html,       ['render-astron', 'render-bamboo', 'render-index']);
