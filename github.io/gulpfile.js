@@ -50,7 +50,8 @@
     astronDocs: paths.docs   + '/astron/**/*.md',
     bambooDocs: paths.docs   + '/bamboo/**/*.md',
     renderDocs: paths.render + '/**/**/*.html',
-    pages: ['site/index.html', 'site/astron/index.html', 'site/bamboo/index.html']
+    pages: ['site/index.html', 'site/license.html',
+            'site/astron/index.html', 'site/bamboo/index.html']
   }
 
   // Run a local webserver, continously rebuild the site
@@ -132,6 +133,7 @@
     }
 
     buildPage('index.html');
+    buildPage('license.html')
     buildPage('astron/index.html');
     buildPage('bamboo/index.html');
   });
