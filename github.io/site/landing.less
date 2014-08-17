@@ -1,42 +1,71 @@
-// Core CSS (Body, Background, etc)
+/* Copyright (c) 2014 The Astron Project. All rights reserved.
+ * The contents of this document are licensed under Astron's Documentation License.
+ * The license is available at https://astron.github.io/license. */
+
+// Core CSS
+// -------------------------
+@import "astron/variables.less";
 @import "common/variables.less";
-
-// Page colors
-// -------------------------
-@background:      #1b1b1b;
-@navigation:      #2c2c2c;
-@navigation-logo: #434343;
-@content:         #e0e0e0;
-
-// Text colors
-// -------------------------
-@text:      #111111;
-@text-a:    #222222;
-@text-h1:   #333333;
-@text-grey: #444444;
-@a-hover:   #555555;
-
-// Decoration colors
-// -------------------------
-@accent-primary:   #ff9f2e;
-@accent-secondary: #ffc784;
-@shadow-dark:      #000000;
-
 @import "common/base.less";
-html, body, .container { height: 100%; }
-img { position: absolute; top: 50%; left: 50%; margin-top: -75px; margin-left: -230px; }
-.landing {
-  position: relative;
-  text-align: center;
+@import "common/mixins.less";
 
-  margin: auto;
-  width: 100%;
-  height: 50%;
+html, body { height: 100%; }
+img { width: 350px; }
+
+
+// Navigation
+// -------------------------
+
+.centered {
+  display: inline-block;
+
+  position: relative;
+  top: 50%; left: 50%;
+  margin-top:  -319.5px;
+  margin-left: -194px;
+
+  border-radius: 50px;
+  box-shadow: 0 0 10px 0 @shadow-light;
+}
+
+.landing {
+  padding: 20px 2px;
 
   background-color: @navigation;
+  background-clip: padding-box;
+  border: rgba(44, 44, 44, 0.3) 7px solid;
 }
-.landing:hover { background-color: @navigation-logo; }
-#astron { border-bottom: #ff9f2e 8px solid; }
-#astron:hover { border-color: #ffc784; }
-#bamboo { border-top: #136ED3 8px solid; }
-#bamboo:hover { border-color: #3886DC; }
+#astron {
+  border-bottom: #ff9f2e 8px solid;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+
+  z-index: 1;
+}
+#bamboo {
+  border-top: #136ED3 8px solid;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+
+  // Bump the z-index so it isn't shadowed by the first's box-shadow
+  z-index: 2;
+}
+
+a:hover .landing {
+  background-color: @navigation-logo;
+  border-color: rgba(67, 67, 67, 0.3);
+}
+a:hover #astron { border-bottom-color: #ffc784; }
+a:hover #bamboo { border-top-color: #3886DC; }
+
+
+// Footer
+// -------------------------
+
+@import "common/footer.less";
+
+// The footer position is overriden on the landing to be fixed at page bottom.
+footer {
+  position: fixed;
+  bottom: 0; left: 0;
+}
