@@ -1,0 +1,26 @@
+nav {
+  display: inline-block;
+  white-space: nowrap;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (min-width: @lg-media-min) {
+    vertical-align: top;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+nav a {
+  box-sizing: border-box;
+  height: @header-height;
+  padding: 4px;
+  margin-left: 8px;
+  margin-right: 8px;
+
+  color: @text-body;
+  font-size: 2em;
+  line-height: @header-height;
+  text-shadow: 2px 2px 2px @shadow-light;
+}
+nav a:hover { color: @accent-secondary; }

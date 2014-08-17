@@ -20,7 +20,10 @@
         <img src="/images/%%project-461px.png" alt="%%fullTitle">
       </a>
 
-      %%include('common/navigation.html')
+      %%include('%%project/navigation.html', {
+        "language": "%%language",
+        "version":  "%%version"
+      })
 
     </div>
   </header>

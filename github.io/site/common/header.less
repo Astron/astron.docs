@@ -7,14 +7,17 @@ header {
   z-index: @layer-header;
 
   width: 100%;
-  height: 80px;
+  height: @header-height;
 
   background-color: @navigation;
   border-bottom: @accent-primary solid 10px;
 }
 
+header .container {
+  text-align: center;
+}
+
 #banner {
-  display: inline-block;
   padding: 20px 2px;
   background-color: @navigation-logo;
   background-clip: padding-box;
@@ -23,6 +26,11 @@ header {
   border-top: none;
   border-bottom-left-radius: 50px;
   border-bottom-right-radius: 50px;
+
+  display: none;
+  @media (min-width: @lg-media-min) {
+    display: inline-block;
+  }
 }
 #banner img {
   width: 350px;

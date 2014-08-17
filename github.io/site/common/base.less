@@ -37,13 +37,15 @@ h4 { font-size: 1.2em; color: inherit; }
 }
 
 .lead {
-  margin-top: @bg-height-upper;
+  margin-top: @gutter-size;
   margin-bottom: @gutter-size;
 
   color: #ddd;
   font-size: 3.5em;
   font-weight: 300;
   text-align: center;
+
+  @media (min-width: @lg-media-min) { margin-top: @bg-height-upper; }
 }
 
 .justified {
