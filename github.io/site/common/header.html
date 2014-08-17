@@ -5,21 +5,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Astron &mdash; %%title</title>
+  <title>%%fullTitle &mdash; %%pageTitle</title>
 
   <!-- CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
-  <link rel="stylesheet" href="/css/astron.css" />
+  <link rel="stylesheet" href="/css/%%project.css" />
 </head>
 <body>
   <header>
     <div class="container">
-      <a id="banner" href="/astron/index.html">
-        <img src="/images/astron-black-461px.png" alt="Astron">
+      <a id="banner" href="/%%project/%%language/index.html">
+        <img src="/images/%%project-461px.png" alt="%%fullTitle">
       </a>
 
-      %%include('base/navigation.html')
+      %%include('common/navigation.html')
+
     </div>
   </header>
   <hr class="top" />

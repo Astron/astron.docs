@@ -1,6 +1,14 @@
-%%include('base/header.html', {
+%%include('common/header.html', {
   "language": "en",
-  "title": "a distributed object-oriented game server"
+  "project": "@project",
+  "fullTitle": "@fullTitle",
+  "pageTitle": "@pageTitle"
 })
-%%include('@markdown')
-%%include('base/footer.html')
+
+<div class="container docs">
+  <article class="content">
+    %%include('@markdown')
+  </article>
+</div>
+
+%%include('common/footer.html')

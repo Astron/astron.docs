@@ -45,11 +45,12 @@
     js:   'site/**/*.js',
 
     home:      'site/index.html',
-    style:     'site/astron.less',
+    style:     'site/*.less',
     template:  'site/template.html',
     resources: 'resources/**',
-    markdown:  paths.docs + '/**/**/*.md',
-    pages:     paths.pages + '/**/**/*.html'
+    astronDocs: paths.docs + '/astron/**/*.md',
+    bambooDocs: paths.docs + '/bamboo/**/*.md',
+    pages:      paths.pages + '/**/**/*.html'
   }
 
   // Run a local webserver, continously rebuild the site
@@ -59,21 +60,48 @@
 
   // Compiles the full site into the build directory
   gulp.task('build', function() {
-    sequence('clean', 'render-index', 'render-markdown', 'render-less', 'copy-js', 'copy-files');
+    sequence('clean', 'render-index', 'render-astron', 'render-bamboo',
+                      'render-less', 'copy-js', 'copy-files');
   });
 
-  // Renders the markdown docs into html
-  gulp.task('render-markdown', function() {
-    gulp.src(files.markdown, { base: paths.docs })
+  // Renders astron's markdown docs into html
+  gulp.task('render-astron', function() {
+    gulp.src(files.astronDocs, { base: paths.docs })
         .pipe(markdown())
-        .pipe(changed(paths.pages))
         .pipe(gulp.dest(paths.pages))
         .pipe(foreach(function(stream, file) {
+            var pageTitle = path.basename(file.path, '.html');
+            if(pageTitle === 'index') { pageTitle = 'a distributed object-oriented game server'; }
             return gulp.src(files.template)
                        .pipe(replace(/@markdown/, file.path))
+                       .pipe(replace(/@project/, 'astron'))
+                       .pipe(replace(/@fullTitle/, 'Astron'))
+                       .pipe(replace(/@pageTitle/, pageTitle))
                        .pipe(render('%%'))
                        .on('error', function(error) {
-                          util.log('Error in', util.colors.cyan('render-markdown'), error.message);
+                          util.log('Error in', util.colors.cyan('render-astron'), error.message);
+                        })
+                       .pipe(rename(path.relative(file.base, file.path)));
+         }))
+        .pipe(gulp.dest(paths.website));
+  })
+
+  // Renders bamboo's markdown docs into html
+  gulp.task('render-bamboo', function() {
+    gulp.src(files.bambooDocs, { base: paths.docs })
+        .pipe(markdown())
+        .pipe(gulp.dest(paths.pages))
+        .pipe(foreach(function(stream, file) {
+            var pageTitle = path.basename(file.path, '.html');
+            if(pageTitle === 'index') { pageTitle = 'object-oriented protocols'; }
+            return gulp.src(files.template)
+                       .pipe(replace(/@markdown/, file.path))
+                       .pipe(replace(/@project/, 'bamboo'))
+                       .pipe(replace(/@fullTitle/, 'Bamboo'))
+                       .pipe(replace(/@pageTitle/, pageTitle))
+                       .pipe(render('%%'))
+                       .on('error', function(error) {
+                          util.log('Error in', util.colors.cyan('render-bamboo'), error.message);
                         })
                        .pipe(rename(path.relative(file.base, file.path)));
          }))
@@ -127,15 +155,16 @@
     site.use(history);
     site.use(serve(paths.website));
     site.listen(8080);
-    util.log('Go to ', util.colors.cyan('http://localhost:8080'), ' in a browser.');
+    util.log('Go to', util.colors.cyan('http://localhost:8080'), 'in a browser.');
   });
 
   // Watch files and re-build as necessary while server is running
   gulp.task('watch', function() {
-    gulp.watch(files.home,     ['render-index'])
-    gulp.watch(files.markdown, ['render-markdown']);
-    gulp.watch(files.html,     ['render-markdown', 'render-index']);
-    gulp.watch(files.less,     ['render-less']);
-    gulp.watch(files.js,       ['copy-js']);
+    gulp.watch(files.home,       ['render-index']);
+    gulp.watch(files.astronDocs, ['render-astron']);
+    gulp.watch(files.bambooDocs, ['render-bamboo']);
+    gulp.watch(files.html,       ['render-astron', 'render-bamboo', 'render-index']);
+    gulp.watch(files.less,       ['render-less']);
+    gulp.watch(files.js,         ['copy-js']);
   });
 })();
