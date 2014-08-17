@@ -24,10 +24,8 @@
       markdown = require('gulp-markdown'),
       less     = require('gulp-less'),
       // server utils
-      connect  = require('connect'),
-      history  = require('connect-history-api-fallback'),
-      changed  = require('gulp-changed'),
-      serve    = require('serve-static');
+      webserver = require('gulp-webserver'),
+      changed   = require('gulp-changed');
 
   // Define directories
   var paths = {
@@ -160,11 +158,13 @@
 
   // Serve development server from build directory
   gulp.task('server', function() {
-    var site = connect();
-    site.use(history);
-    site.use(serve(paths.website));
-    site.listen(8080);
-    util.log('Go to', util.colors.cyan('http://localhost:8080'), 'in a browser.');
+    gulp.src(paths.website)
+        .pipe(webserver({
+          port: 8080,
+          livereload: true,
+          fallback: 'index.html',
+          open: true
+        }));
   });
 
   // Watch files and re-build as necessary while server is running
