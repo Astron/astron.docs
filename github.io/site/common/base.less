@@ -5,18 +5,20 @@
 body {
   margin: 0;
 
-  color: @text;
+  color: @text-body;
   font-family: @font-primary;
   background-color: @background;
 }
 
 p  { color: inherit; }
-a  { color: @text-a; text-decoration: none; }
+a  { color: @text-link; text-decoration: none; }
 a:hover { color: @a-hover; }
 
 h1, h2, h3, h4, h5, h6 { margin: 0; }
-h1 { font-size: 3em; color: @text-h1; }
-h2 { font-size: 2em; }
+h1 { font-size:   3em; color: @text-head; }
+h2 { font-size:   2em; color: @text-head; }
+h3 { font-size: 1.5em; color: inherit; }
+h3 { font-size: 1.2em; color: inherit; }
 
 .container {
   margin-left: auto;
@@ -30,5 +32,21 @@ h2 { font-size: 2em; }
 }
 
 .content {
+  color: @text-main;
   background-color: @content;
+}
+.lead {
+  margin-top: @bg-height-upper;
+  margin-bottom: @gutter-size;
+
+  color: #ddd;
+  font-size: 4em;
+  font-weight: 300;
+  text-align: center;
+}
+
+// The meta-documentation class is for the AUTHORS, LICENCE, and similar files.
+.meta-documentation {
+  margin-top: 32px;
+  margin-bottom: 32px;
 }
