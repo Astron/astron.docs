@@ -8,9 +8,7 @@
 @import "common/variables.less";
 @import "common/base.less";
 @import "common/mixins.less";
-
-html, body { height: 100%; }
-img { width: 350px; }
+@import "common/components.less";
 
 
 // Navigation
@@ -20,10 +18,10 @@ img { width: 350px; }
   display: inline-block;
   z-index: @layer-content;
 
-  position: relative;
+  position: fixed;
   top: 40%; left: 50%;
-  margin-top:  -174px;
-  margin-left: -194px;
+  margin-top:  -194px;
+  margin-left: -174px;
 
   border-radius: 50px;
   box-shadow: 0 0 10px 0 @shadow-light;
@@ -36,6 +34,7 @@ img { width: 350px; }
   background-clip: padding-box;
   border: rgba(44, 44, 44, 0.3) 7px solid;
 }
+.landing img { width: 350px; }
 #astron {
   border-bottom: #ff9f2e 8px solid;
   border-top-left-radius: 50px;

@@ -1,0 +1,74 @@
+//
+// Components
+// --------------------------------------------------
+
+
+// Flash Messages
+// -------------------------
+// The style for flash messages was filched from Bootstrap's alerts:
+// Bootstrap is Copyright (c) 2011-2014 Twitter, Inc and available
+// under the terms of the MIT License (http://opensource.org/licenses/MIT).
+//
+// Flash messages are messages that appear in an overlay at the top of the page.
+// They typically contain warnings or important information that we want the
+// user to see immediately.  They require javascript to be enabled.
+
+.flash {
+  position: absolute;
+  top: 8px; left: 50%;
+  z-index: @layer-message;
+
+  box-sizing: border-box;
+  width: 350px;
+  margin-left: -175px;
+  padding: 8px;
+  padding-left: 15px;
+  padding-right: 35px;
+
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 14px;
+
+  // .flash elements slide-down with jQuery, so start as display: none;
+  display: none;
+}
+
+.flash-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.flash-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.flash a { color: inherit; font-weight: bold; }
+.flash a:hover { text-decoration: underline; }
+.flash-info { color: #245269; }
+.flash-danger a { color: #843534; }
+
+.flash-close {
+  position: relative;
+  right: -27px; top: -2px;
+  float: right;
+
+  cursor: pointer;
+  opacity: 0.25;
+
+  color: inherit;
+  font-size: 21px;
+  text-shadow: 0 1px 0 #fff;
+}
+
+// Meta Documentation
+// -------------------------
+// Meta-documentation is for the AUTHORS, LICENCE, and similar
+// files that are documentation about our documentation.
+
+.meta-documentation {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
