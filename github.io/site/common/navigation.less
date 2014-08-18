@@ -1,4 +1,8 @@
-nav {
+//
+// Navigation
+// --------------------------------------------------
+
+header nav {
   display: inline-block;
   white-space: nowrap;
   margin-left: auto;
@@ -9,18 +13,19 @@ nav {
     margin-left: 20px;
     margin-right: 20px;
   }
-}
 
-nav a {
-  box-sizing: border-box;
-  height: @header-height;
-  padding: 4px;
-  margin-left: 8px;
-  margin-right: 8px;
+  a {
+    box-sizing: border-box;
+    height: @header-height;
+    padding: 4px;
+    margin-left: 8px;
+    margin-right: 8px;
 
-  color: @text-body;
-  font-size: 2em;
-  line-height: @header-height;
-  text-shadow: 2px 2px 2px @shadow-light;
+    color: @text-body;
+    font-size: 2em;
+    line-height: @header-height;
+    text-shadow: 2px 2px 2px @shadow-light;
+  }
+
+  a:hover { color: @accent-secondary; }
 }
-nav a:hover { color: @accent-secondary; }
