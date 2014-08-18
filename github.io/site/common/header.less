@@ -43,13 +43,13 @@ hr.top {
 
   border: 0;
   height: 1px;
-  margin-top: 100px;
+  margin-top: @gutter-size;
 
   #gradient > .horizontal-in-out(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.0), 5%, 50%, 95%);
 
   @media (min-width: @sm-media-min) { width: @sm-content; }
   @media (min-width: @md-media-min) { width: @md-content; }
-  @media (min-width: @lg-media-min) { width: @lg-content; }
+  @media (min-width: @lg-media-min) { width: @lg-content; margin-top: 100px; }
 }
 hr.top::after {
   content: '';

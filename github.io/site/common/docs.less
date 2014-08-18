@@ -2,15 +2,90 @@
 // Documentation Styles
 // --------------------------------------------------
 
+// Markdown Documentation
+// -------------------------
 .docs {
   z-index: @layer-content;
+  white-space: nowrap;
 
+  // Main Content
+  // -------------------------
+  article { font-size: 19px; }
   article {
-    min-height: @bg-height-upper + @bg-height-lower;
+    z-index: @layer-content;
+    display: inline-block;
+    vertical-align: top;
 
+    box-sizing: border-box;
+    min-height: @bg-height-upper + @bg-height-lower;
+    width: 80%;
+    margin: 0;
     margin-top: 32px;
     padding: 40px 40px 30px;
 
     border-radius: 10px;
+    white-space: normal; // Have to reset, because its inherited from .docs {}
+  }
+
+  // Text Styles
+  // -------------------------
+  h1 { font-size:   2em; text-shadow: 0 1px 3px @shadow; }
+  h2 { font-size: 1.5em; text-shadow: 0 1px 3px @shadow; }
+  h3 { font-size: 1.2em; }
+  h4 { font-size:   1em; }
+
+  *:not(pre) > code { color: @accent-secondary; }
+
+  pre {
+    overflow: auto;
+    box-sizing: border-box;
+    max-width: 100%;
+    padding: 1em;
+
+    font-size: 14px;
+    color: @text-main-dark;
+    background-color: @content-dark;
+    border-radius: 5px;
+    box-shadow: inset 0  1px 10px rgba(0, 0, 0, 0.3),
+                      0  1px  0   rgba(255, 255, 255, 0.1),
+                      0 -1px  0   rgba(0, 0, 0, 0.5);
+  }
+
+  // Table of Contents
+  // -------------------------
+  aside.toc {
+    z-index: @layer-content - 1;
+    vertical-align: top;
+
+    // Hide Table of Contents on small devices
+    display: none;
+    @media (min-width: @sm-media-min) { display: inline-block; }
+
+    box-sizing: border-box;
+    min-height: @bg-height-upper + @bg-height-lower;
+    width: 20%;
+    margin: 0;
+    margin-top: 32px;
+    margin-right: -4px;
+    padding: 0;
+    padding-top: 30px;
+
+    text-align: right;
+  }
+
+  aside.toc h4 {
+    display: inline-block;
+    padding-right: 30px;
+
+    text-transform: uppercase;
+    border-bottom: @accent-primary 1px solid;
+  }
+
+  aside.toc ul {
+    padding-left: 0;
+    padding-right: 30px;
+    list-style: none;
+
+    text-shadow: 0 1px 3px @shadow;
   }
 }
