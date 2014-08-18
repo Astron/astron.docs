@@ -70,7 +70,6 @@
         .pipe(gulp.dest(paths.render))
         .pipe(foreach(function(stream, file) {
             var pageTitle = path.basename(file.path, '.html');
-            if(pageTitle === 'index') { pageTitle = 'a distributed object-oriented game server'; }
             return gulp.src(files.template)
                        .pipe(replace(/@markdown/, file.path))
                        .pipe(replace(/@project/, 'astron'))
