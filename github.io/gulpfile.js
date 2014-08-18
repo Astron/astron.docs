@@ -140,6 +140,7 @@
   gulp.task('copy-js', function() {
     gulp.src(files.js)
         .pipe(changed(paths.website))
+        .pipe(rename(function(path) { path.dirname += '/../js' }))
         .pipe(gulp.dest(paths.website));
   });
 

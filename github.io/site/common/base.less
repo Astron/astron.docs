@@ -45,7 +45,7 @@ h4 { font-size: 1.2em; color: inherit; }
   font-weight: 300;
   text-align: center;
 
-  @media (min-width: @lg-media-min) { margin-top: @bg-height-upper; }
+  @media (min-width: @lg-media-min) { margin-top: 128px; }
 }
 
 .justified {
@@ -54,4 +54,9 @@ h4 { font-size: 1.2em; color: inherit; }
   @media (min-width: @sm-media-min) { width: @sm-justified; }
   @media (min-width: @md-media-min) { width: @md-justified; }
   @media (min-width: @lg-media-min) { width: @lg-justified; }
+}
+
+.justified-large {
+  .justified;
+  font-size: 1.5em;
 }

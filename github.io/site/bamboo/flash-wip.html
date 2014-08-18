@@ -10,6 +10,17 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js">
 </script>
 <script type="text/javascript">
-$('#wip-flash').click(function() { $('#wip-flash').slideUp(100); });
-$(document).ready(function() { $('#wip-flash').slideDown(); });
+// Add click handler for the close button
+$('#wip-flash').click(function() {
+  $('#wip-flash').slideUp(100);
+  setCookie('didHideWipWarning', 'yes', 3);
+});
+
+// Flash the warning if the user hasn't hidden it already
+$(document).ready(function() {
+  var didHide = getCookie('didHideWipWarning');
+  if(didHide != 'yes') {
+    $('#wip-flash').slideDown();
+  }
+});
 </script>
