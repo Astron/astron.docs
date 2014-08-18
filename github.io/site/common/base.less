@@ -2,6 +2,10 @@
 // Base - core page elements (body, ... and stuff ... )
 // --------------------------------------------------
 
+
+// Containers
+// -------------------------
+
 body {
   margin: 0;
 
@@ -9,16 +13,6 @@ body {
   font-family: @font-primary;
   background-color: @background;
 }
-
-p  { color: inherit; }
-a  { color: @text-link; text-decoration: none; }
-a:hover { color: @a-hover; }
-
-h1, h2, h3, h4, h5, h6 { margin: 0; }
-h1 { font-size:   3em; color: @text-head; }
-h2 { font-size:   2em; color: @text-head; }
-h3 { font-size: 1.5em; color: inherit; }
-h4 { font-size: 1.2em; color: inherit; }
 
 .container {
   margin-left: auto;
@@ -36,6 +30,33 @@ h4 { font-size: 1.2em; color: inherit; }
   background-color: @content;
 }
 
+.justified {
+  margin: 32px auto;
+
+  @media (min-width: @sm-media-min) { width: @sm-justified; }
+  @media (min-width: @md-media-min) { width: @md-justified; }
+  @media (min-width: @lg-media-min) { width: @lg-justified; }
+}
+
+.justified-large {
+  .justified;
+  font-size: 1.5em;
+}
+
+
+// Text Elements
+// -------------------------
+
+p  { color: inherit; margin: 0; margin-top: 1em; margin-bottom: 1em; }
+a  { color: @text-link; text-decoration: none; }
+a:hover { color: @a-hover; }
+
+h1, h2, h3, h4, h5, h6 { margin: 0; }
+h1 { font-size:   3em; color: @text-head; }
+h2 { font-size:   2em; color: @text-head; }
+h3 { font-size: 1.5em; color: inherit; }
+h4 { font-size: 1.2em; color: inherit; }
+
 .lead {
   margin-top: @gutter-size;
   margin-bottom: @gutter-size;
@@ -48,15 +69,12 @@ h4 { font-size: 1.2em; color: inherit; }
   @media (min-width: @lg-media-min) { margin-top: 128px; }
 }
 
-.justified {
-  margin: 32px auto;
-
-  @media (min-width: @sm-media-min) { width: @sm-justified; }
-  @media (min-width: @md-media-min) { width: @md-justified; }
-  @media (min-width: @lg-media-min) { width: @lg-justified; }
+.text-muted {
+  color: @text-mute;
 }
-
-.justified-large {
-  .justified;
-  font-size: 1.5em;
+.text-primary {
+  color: @accent-primary;
+}
+.text-secondary {
+  color: @accent-secondary;
 }
