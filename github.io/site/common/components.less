@@ -3,52 +3,71 @@
 // --------------------------------------------------
 
 
-// Flash Messages
+// Alerts
 // -------------------------
-// The style for flash messages was filched from Bootstrap's alerts:
+// The style for alerts was filched from Bootstrap's alerts:
 // Bootstrap is Copyright (c) 2011-2014 Twitter, Inc and available
 // under the terms of the MIT License (http://opensource.org/licenses/MIT).
-//
-// Flash messages are messages that appear in an overlay at the top of the page.
-// They typically contain warnings or important information that we want the
-// user to see immediately.  They require javascript to be enabled.
 
-.flash {
-  position: absolute;
-  top: 12px; left: 50%;
-  z-index: @layer-message;
-
+.alert {
+  display: inline-block;
   box-sizing: border-box;
-  width: 350px;
-  margin-left: -175px;
-  padding: 8px;
-  padding-left: 15px;
-  padding-right: 35px;
+  margin-bottom: @gutter-size;
+  padding: 15px;
 
   border: 1px solid transparent;
   border-radius: 4px;
   font-size: 14px;
-
-  // .flash elements slide-down with jQuery, so start as display: none;
-  display: none;
 }
 
-.flash-info {
+.alert-info {
   color: #31708f;
   background-color: #d9edf7;
   border-color: #bce8f1;
 }
 
-.flash-danger {
+.alert-warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+
+.alert-danger {
   color: #a94442;
   background-color: #f2dede;
   border-color: #ebccd1;
 }
 
-.flash a { color: inherit; font-weight: bold; }
-.flash a:hover { text-decoration: underline; }
-.flash-info { color: #245269; }
-.flash-danger a { color: #843534; }
+.alert a { color: inherit; font-weight: bold; }
+.alert a:hover { text-decoration: underline; }
+.alert-info a { color: #245269; }
+.alert-danger a { color: #843534; }
+.alert-warning a { color: #66512c; }
+
+
+// Flashes
+// -------------------------
+// Flash messages are messages that appear in an overlay at the top of the page.
+// They typically contain warnings or important information that we want the
+// user to see immediately.  They require javascript to be enabled.
+
+.flash {
+  z-index: @layer-message;
+  position: absolute;
+  top: 12px; left: 50%;
+
+  width: 350px;
+  margin: 0;
+  margin-left: -175px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+
+  // Flashes are added via javascript and start hidden.
+  display: none;
+
+  // Provide additional space for the close button.
+  padding-right: 35px;
+}
 
 .flash-close {
   position: relative;
