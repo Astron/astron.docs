@@ -1,9 +1,8 @@
-Welcome to Astron
+Guide / Tutorial
 =================
 
-Documentation things and stuff <a href="#">Fillipino</a>.
+Welcome to the Astron guide / tutorial.
 
+Unfortunately, the welcome page is a stub for the next little bit while its being built.
 
-## H2
-
-More words that mean things.
+Feel free to ask for help on IRC at <a href="https://freenode.net">irc.freenode.net</a> on channel <strong>#Astron</strong>.
