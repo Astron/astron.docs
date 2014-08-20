@@ -40,7 +40,7 @@ Astron also depends on a couple third party libraries:
  - libyaml-cpp 0.5+
 
 Get the boost library from [here](http://www.boost.org/users/download/), or
-install from a package on linux or OS X (with [Homebrew](http://brew.sh/).
+install from a package on linux or OS X (with [Homebrew](http://brew.sh/)).
 
 In some environments Boost is not automatically detected, and you may have to
 set the `BOOST_ROOT` environment variable as the root directory of your compiled
