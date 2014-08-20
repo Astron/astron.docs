@@ -4,3 +4,4 @@
 Elizabeth Reedy <junehsluv@gmail.com>  
 Harvir <harvir14@gmail.com>  
 Kevin Stenerson <kestred@riotcave.com>  
+Sam Edwards <cfsworks@gmail.com>  

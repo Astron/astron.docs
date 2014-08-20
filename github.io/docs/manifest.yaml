@@ -1,0 +1,63 @@
+# Astron Manifest
+---
+name: astron
+title: Astron
+versions:
+- branch: master
+  language: en
+
+  guide:
+  - section: Getting Started
+  - title: Welcome
+    filename: guide
+
+  - section: Build from Source
+  - title: Introduction
+    filename: build-introduction
+  - title: Build on Linux
+    filename: build-linux-other
+  - title: Build on Windows
+    filename: build-windows
+
+  reference:
+  - section: Contributing
+  - title: Style Conventions
+    filename: style-readme
+  - title: C++ Style guide
+    filename: style-cxx
+
+  - section: Client Protocol
+  - title: Client Messages
+    filename: 10-client
+
+  - section: Internal Protocol
+  - title: Message Format
+    filename: 00-message-encoding
+  - title: Control Messages
+    filename: 19-messagedirector
+  - title: ClientAgent Messages
+    filename: 11-clientagent
+  - title: StateServer Messages
+    filename: 12-stateserver
+  - title: Database Messages
+    filename: 13-dbserver
+
+
+# Bamboo Manifest
+---
+name: bamboo
+title: Bamboo
+versions:
+- branch: master
+  language: en
+
+  guide:
+  - section: Getting Started
+  - title: Welcome
+    filename: guide
+
+  reference:
+  - section: DC Language
+  - title: DC Reference Draft
+    filename: reference
+  - section: API Reference
