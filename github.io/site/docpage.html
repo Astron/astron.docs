@@ -1,0 +1,25 @@
+%%include('common/header.html', {
+  "project": "@project",
+  "fullTitle": "@fullTitle",
+  "pageTitle": "@pageTitle",
+  "language": "@language",
+  "version": "@version"
+})
+
+<hr class="top" />
+
+<div class="container docs group-@group section-@section">
+
+  %%include('@contents')
+
+  <article class="content">
+    %%include('@markdown')
+  </article>
+
+</div>
+
+<div id="backfade-anchor">
+  <div class="backfade"></div>
+</div>
+
+%%include('common/footer.html')

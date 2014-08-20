@@ -8,8 +8,11 @@
   'use strict';
 
   var gulp = require('gulp'),
-      // node stdlib
+      // node tools
+      fs       = require('fs'),
       path     = require('path'),
+      _        = require('lodash'),
+      yaml     = require('js-yaml'),
       // gulp helpers
       util     = require('gulp-util'),
       foreach  = require('gulp-foreach'),
@@ -31,25 +34,33 @@
   var paths = {
     docs:      'docs',
     build:     'build',
-    render:    'build/render',
     website:   'build/site',
-    templates: 'templates'
+    rendered:  'build/output',
+    templates: 'site'
   }
 
-  // Define file globs
+  // Define files and file globs
   var files = {
-    html: 'site/**/*.html',
-    less: 'site/**/*.less',
-    js:   'site/**/*.js',
+    // Watch globs
+    html:      'site/**/*.html',
+    less:      'site/**/*.less',
 
-    style:     'site/*.less',
-    template:  'site/template.html',
+    // Source globs
+    styles:    'site/*.less',
+    scripts:   'site/**/*.js',
+    markdown:  'docs/**/**/*.md',
     resources: 'resources/**',
-    astronDocs: paths.docs   + '/astron/**/*.md',
-    bambooDocs: paths.docs   + '/bamboo/**/*.md',
-    renderDocs: paths.render + '/**/**/*.html',
-    pages: ['site/index.html', 'site/license.html',
-            'site/astron/index.html', 'site/bamboo/index.html']
+    rendered:  'build/output/**/**/*.html',
+
+    // Unique files
+    docpage:  'site/docpage.html',
+    manifest: 'docs/manifest.yaml',
+    pages: [
+      'site/index.html',
+      'site/license.html',
+      'site/astron/index.html',
+      'site/bamboo/index.html'
+    ]
   }
 
   // Run a local webserver, continously rebuild the site
@@ -59,56 +70,133 @@
 
   // Compiles the full site into the build directory
   gulp.task('build', function() {
-    sequence('clean', 'render-index', 'render-astron', 'render-bamboo',
-                      'render-less', 'copy-js', 'copy-files');
+    return sequence('clean', ['copy-scripts', 'copy-resources'],
+                    'render-docpages', ['render-static', 'render-less']);
   });
 
-  // Renders astron's markdown docs into html
-  gulp.task('render-astron', function() {
-    gulp.src(files.astronDocs, { base: paths.docs })
-        .pipe(markdown())
-        .pipe(gulp.dest(paths.render))
-        .pipe(foreach(function(stream, file) {
-            var pageTitle = path.basename(file.path, '.html');
-            return gulp.src(files.template)
-                       .pipe(replace(/@markdown/, file.path))
-                       .pipe(replace(/@project/, 'astron'))
-                       .pipe(replace(/@fullTitle/, 'Astron'))
-                       .pipe(replace(/@pageTitle/, pageTitle))
-                       .pipe(render('%%'))
-                       .on('error', function(error) {
-                          util.log('Error in', util.colors.cyan('render-astron'), error.message);
-                        })
-                       .pipe(rename(path.relative(file.base, file.path)));
-         }))
-        .pipe(gulp.dest(paths.website));
-  })
+  // Render markdown docs into html docs
+  gulp.task('render-markdown', function() {
+    return gulp.src(files.markdown)
+               .pipe(changed(paths.rendered, {extension: '.html'}))
+               .pipe(markdown())
+               .pipe(gulp.dest(paths.rendered));
+  });
 
-  // Renders bamboo's markdown docs into html
-  gulp.task('render-bamboo', function() {
-    gulp.src(files.bambooDocs, { base: paths.docs })
-        .pipe(markdown())
-        .pipe(gulp.dest(paths.render))
-        .pipe(foreach(function(stream, file) {
-            var pageTitle = path.basename(file.path, '.html');
-            if(pageTitle === 'index') { pageTitle = 'object-oriented protocols'; }
-            return gulp.src(files.template)
-                       .pipe(replace(/@markdown/, file.path))
-                       .pipe(replace(/@project/, 'bamboo'))
-                       .pipe(replace(/@fullTitle/, 'Bamboo'))
-                       .pipe(replace(/@pageTitle/, pageTitle))
-                       .pipe(render('%%'))
-                       .on('error', function(error) {
-                          util.log('Error in', util.colors.cyan('render-bamboo'), error.message);
-                        })
-                       .pipe(rename(path.relative(file.base, file.path)));
-         }))
-        .pipe(gulp.dest(paths.website));
-  })
+  //Render the table of contents for each language and version
+  gulp.task('render-contents', function() {
+    function buildContents(pages) {
+      var toc = '<aside class="toc">\n';
+
+      var inList = false;
+      _.forEach(pages, function(page) {
+        if(_.isUndefined(page.section)) {
+          // Add new page link
+          if(!inList) { toc += '  <ul>\n'; inList = true; }
+          toc += '    <li><a href="' + page.filename + '.html">' + page.title + '</a></li>\n';
+
+        } else {
+          // Add new section header
+          if(inList) { toc += '  </ul>\n'; inList = false; }
+          toc += '  <h4>' + page.section + '</h4>\n';
+        }
+      });
+
+      toc += '</aside>\n';
+      return toc;
+    }
+
+    var projects = []
+    yaml.loadAll(fs.readFileSync(files.manifest, 'utf8'),
+                 function(doc) { projects.push(doc); });
+
+    // Make sure the output directory exists
+    if(!fs.existsSync(paths.build)) { fs.mkdirSync(paths.build, '0775'); }
+    if(!fs.existsSync(paths.rendered)) { fs.mkdirSync(paths.rendered, '0775'); }
+
+    _.forEach(projects, function(project) {
+      // Make sure a directory exists for the project
+      var projectPath = paths.rendered + '/' + project.name;
+      if(!fs.existsSync(projectPath)) { fs.mkdirSync(projectPath, '0775'); }
+
+      _.forEach(project.versions, function(version) {
+        // Make sure a directory exists for the language
+        var langPath = projectPath + '/' + version.language;
+        if(!fs.existsSync(langPath)) { fs.mkdirSync(langPath, '0775'); }
+
+        // Make sure a directory exists for the version
+        var versionName = _.isUndefined(version.tag) ? version.branch : version.tag;
+        var versionPath = langPath + '/' + versionName;
+        if(!fs.existsSync(versionPath)) { fs.mkdirSync(versionPath, '0775'); }
+
+        // Write TOC
+        fs.writeFileSync(versionPath + '/toc-guide.html', buildContents(version.guide));
+        fs.writeFileSync(versionPath + '/toc-reference.html', buildContents(version.reference));
+      });
+    });
+  });
+
+  // Render the HTML-ized docs with templates and partials into finalized HTML files
+  gulp.task('render-docpages', ['render-contents', 'render-markdown'], function() {
+    var projects = []
+    yaml.loadAll(fs.readFileSync(files.manifest, 'utf8'),
+                 function(doc) { projects.push(doc); });
+
+    // Make sure the website directory exists
+    if(!fs.existsSync(paths.website)) { fs.mkdirSync(paths.website, '0775'); }
+
+    _.forEach(projects, function(project) {
+      // Make sure the build directory exists for the project
+      var projectSrcPath = paths.rendered + '/' + project.name;
+      var projectBuildPath = paths.website + '/' + project.name;
+      if(!fs.existsSync(projectBuildPath)) { fs.mkdirSync(projectBuildPath, '0775'); }
+
+      _.forEach(project.versions, function(version) {
+        // Make sure the build directory exists for the language
+        var langBuildPath = projectBuildPath + '/' + version.language;
+        if(!fs.existsSync(langBuildPath)) { fs.mkdirSync(langBuildPath, '0775'); }
+
+        // Make sure the build directory exists for the version
+        version.name = _.isUndefined(version.tag) ? version.branch : version.tag;
+        var versionBuildPath = langBuildPath + '/' + version.name;
+        if(!fs.existsSync(versionBuildPath)) { fs.mkdirSync(versionBuildPath, '0775'); }
+
+        var currentSection
+        var srcDir = projectSrcPath + '/' + version.language + '/' + version.name + '/';
+        var pathPrefix = project.name + '/' + version.language + '/' + version.name + '/';
+
+        var groups = ['guide', 'reference']
+        _.forEach(groups, function(group) {
+          _.forEach(version[group], function(page) {
+            if(_.isUndefined(page.section)) {
+              gulp.src(files.docpage)
+                  .pipe(replace(/@project/, project.name ))
+                  .pipe(replace(/@fullTitle/, project.title))
+                  .pipe(replace(/@pageTitle/, page.title))
+                  .pipe(replace(/@language/, version.language))
+                  .pipe(replace(/@version/, version.name))
+                  .pipe(replace(/@group/, group))
+                  .pipe(replace(/@section/, currentSection))
+                  .pipe(replace(/@contents/, '../' + srcDir + 'toc-' + group + '.html'))
+                  .pipe(replace(/@markdown/, '../' + srcDir + page.filename + '.html'))
+                  .pipe(render('%%'))
+                  .on('error', function(error) {
+                     util.log('Error in', util.colors.cyan('render-docpages'), error.message);
+                   })
+                  .pipe(rename(pathPrefix + page.filename + '.html'))
+                  .pipe(gulp.dest(paths.website));
+            } else {
+              // If it is a "section" entry, then just set the section and render nothing
+              currentSection = page.section;
+            }
+          });
+        });
+      });
+    });
+  });
 
   // Renders the less files into a single css file
   gulp.task('render-less', function() {
-    gulp.src(files.style)
+    gulp.src(files.styles)
         .pipe(less())
         .on('error', function(error) {
            util.log('Error in', util.colors.cyan('render-less'), error.message);
@@ -117,13 +205,13 @@
         .pipe(gulp.dest(paths.build));
   });
 
-  // Renders the homepage from templates and partials
-  gulp.task('render-index', function() {
+  // Renders the static pages (home, license, etc..) from templates and partials
+  gulp.task('render-static', function() {
     function buildPage(page) {
       gulp.src('site/' + page)
           .pipe(render({ prefix: '%%', basepath: process.cwd() + '/site' }))
           .on('error', function(error) {
-             util.log('Error in', util.colors.cyan('render-index'), error.message);
+             util.log('Error in', util.colors.cyan('render-static'), error.message);
            })
           .pipe(rename(page))
           .pipe(gulp.dest(paths.website));
@@ -136,18 +224,18 @@
   });
 
   // Copy the javascript files to build
-  gulp.task('copy-js', function() {
-    gulp.src(files.js)
-        .pipe(changed(paths.website))
-        .pipe(rename(function(path) { path.dirname += '/../js' }))
-        .pipe(gulp.dest(paths.website));
+  gulp.task('copy-scripts', function() {
+    return gulp.src(files.scripts)
+               .pipe(changed(paths.website))
+               .pipe(rename(function(path) { path.dirname += '/../js' }))
+               .pipe(gulp.dest(paths.website));
   });
 
   // Copy the other resource files to build
-  gulp.task('copy-files', function() {
-    gulp.src(files.resources)
-        .pipe(changed(paths.website))
-        .pipe(gulp.dest(paths.website));
+  gulp.task('copy-resources', function() {
+    return gulp.src(files.resources)
+               .pipe(changed(paths.website))
+               .pipe(gulp.dest(paths.website));
   });
 
   // Clean deletes the build directory and other build artifacts
@@ -160,20 +248,22 @@
   gulp.task('server', function() {
     gulp.src(paths.website)
         .pipe(webserver({
+          open: true,
           port: 8080,
           livereload: true,
-          fallback: 'index.html',
-          open: true
+          fallback: 'index.html'
         }));
   });
 
   // Watch files and re-build as necessary while server is running
   gulp.task('watch', function() {
-    gulp.watch(files.pages       ['render-index']);
-    gulp.watch(files.astronDocs, ['render-astron']);
-    gulp.watch(files.bambooDocs, ['render-bamboo']);
-    gulp.watch(files.html,       ['render-astron', 'render-bamboo', 'render-index']);
-    gulp.watch(files.less,       ['render-less']);
-    gulp.watch(files.js,         ['copy-js']);
+    gulp.watch(files.manifest,  ['render-docpages']);
+    gulp.watch(files.markdown,  ['render-markdown', 'render-docpages']);
+    gulp.watch(files.pages,     ['render-static']);
+    gulp.watch(files.html,      ['render-static', 'render-docpages']);
+    gulp.watch(files.less,      ['render-less']);
+    gulp.watch(files.styles,    ['render-less']);
+    gulp.watch(files.scripts,   ['copy-scripts']);
+    gulp.watch(files.resources, ['copy-resources']);
   });
 })();

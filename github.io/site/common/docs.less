@@ -10,7 +10,7 @@
 
   // Main Content
   // -------------------------
-  article { font-size: 19px; }
+  article { font-size: 18px; }
   article {
     z-index: @layer-content;
     display: inline-block;
@@ -32,10 +32,28 @@
   // -------------------------
   h1 { font-size:   2em; text-shadow: 0 1px 3px @shadow; }
   h2 { font-size: 1.5em; text-shadow: 0 1px 3px @shadow; }
-  h3 { font-size: 1.2em; }
+  h3 { font-size: 1.3em; }
   h4 { font-size:   1em; }
 
-  *:not(pre) > code { color: @accent-secondary; }
+  blockquote {
+    margin-left: 16px;
+    border-left: 8px solid transparent;
+    padding: 16px;
+
+    background-color: @accent-transparent;
+    border-color: @accent-secondary;
+
+    p { margin: 0; padding: 0; }
+  }
+
+  *:not(pre) > code {
+    color: @text-code;
+    font-size: 15px;
+    font-weight: 300;
+
+    margin-left: 0.1em;
+    margin-right: 0.1em;
+  }
 
   pre {
     overflow: auto;
@@ -50,6 +68,14 @@
     box-shadow: inset 0  1px 10px rgba(0, 0, 0, 0.3),
                       0  1px  0   rgba(255, 255, 255, 0.1),
                       0 -1px  0   rgba(0, 0, 0, 0.5);
+  }
+
+  ul {
+    padding-left: 30px;
+  }
+
+  tr {
+    font-size: 14px;
   }
 
   // Table of Contents
