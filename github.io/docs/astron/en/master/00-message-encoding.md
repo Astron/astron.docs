@@ -1,11 +1,11 @@
-Wire Format of Messages & Data Encoding
----------------------------------------
+Wire Format & Encoding of Messages
+==================================
 **Authors**  
 _Sam "CFSworks" Edwards (08-30-2013)_  
 _Kevin "Kestred" Stenerson (09-04-2013)_   
 
 
-### Section 0: Anatomy of a Message ###
+## Section 0: Anatomy of a Message ##
 
 Astron Message Directors are linked via TCP streams. The linking forms a
 tree; that is, no routing loops may exist in a Message Director network. If a
@@ -44,7 +44,7 @@ Therefore, consider this example message:
                                their own, hence the 05 00
 
 
-#### Section 1: DistributedObject Serialization ####
+## Section 1: DistributedObject Serialization ##
 Some messages contained serialized data in their payload.  
 Serialization as used in messages means sending individual
 variables as raw little-endian byte data, with one value
@@ -58,8 +58,8 @@ the serialized data of all of the required fields of the object.
 The required is followed by a uint16 which specifices how many
 optional fields exist. If any optional fields exist, this is
 followed by <uint16 field_id, [DATA]> pairs for each optional
-field. It is RECOMMENDED that they be in low to high order of
-field_id.  Astron will always broadcast fields in that order.
+field. It is **recommended** that they be in low to high order of
+field id.  Astron will always broadcast fields in that order.
 
 Example DC Class:
 
@@ -79,7 +79,7 @@ Serialized form:
     03 00 // field_id for 'z' (ID = 3)
     00 00 00 00 00 00 00 00 // Value = 0
 
-### Section 2: Argument Types ###
+## Section 2: Argument Types ##
 The following are the types used as message arguments:
 
  * __bool__ - A single byte integer containg either 0 (False) or 1 (True).
@@ -87,7 +87,7 @@ The following are the types used as message arguments:
  * __string__ - A length-prefixed array of character data (no null-terminator).
  * __uintN__ - An N-bit little-endian encoded integer value.
 
-### Section 3: Special Argument Shorthand ###
+## Section 3: Special Argument Shorthand ##
     VALUE        // VALUE is the serialization of a DistributedObject field
 
     REQUIRED ->  // REQUIRED is a group of
@@ -101,7 +101,7 @@ The following are the types used as message arguments:
                                   // optional fields that may be provided by the caller.
 
 
-### Section 4: Message-type Ranges ###
+## Section 4: Message-type Ranges ##
 Each component of the Astron daemon is given its own message-type range:
 
  - **Client:**              1 to  999
@@ -112,7 +112,7 @@ Each component of the Astron daemon is given its own message-type range:
  - **Message Director:** 9000 to 9999
 
 
- ### Section 5: Reserved Channels | Object IDs ###
+ ## Section 5: Reserved Channels | Object IDs ##
 
  - **Invalid Channel:**         0
  - **Control Messages:**        1
@@ -122,7 +122,7 @@ Each component of the Astron daemon is given its own message-type range:
  - **Reserved Channels:**    <999
 
 
- ### Section 6: Reserved Ranges ###
+ ## Section 6: Reserved Ranges ##
 
- - **Parent Messages:**     1 << 32
- - **Reserved Ranges:**  <999 << 32
+ - **Parent Messages:**     1 `<< 32`
+ - **Reserved Ranges:**  <999 `<< 32`

@@ -7,7 +7,7 @@ _Kevin "Kestred" Stenerson (10-08-2013)_
 
 ## Section 0: Abstract ##
 
-This page describes the protocol used by clients to communicate with an Astron
+This document describes the protocol used by clients to communicate with an Astron
 cluster. This should not be confused with the _internal protocol_, which is used
 by Astron servers to communicate amongst themselves. Instead, the client
 protocol is used by game clients (running on the players' computers) to communicate
@@ -113,7 +113,7 @@ in order to accomplish various normal game tasks.
 
 > Inform the client of an object entering one of the client's interests.
 >
-> **Note:** This is analogous to the [StateServer](12-stateserver#object-visibility-messages)
+> **Note:** This is analogous to the [StateServer](12-stateserver#section-2-2-object-visibility-messages)
 >           `OBJECT_ENTER_LOCATION` messages.
 
 
