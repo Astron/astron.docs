@@ -13,21 +13,24 @@
   <div class="justified-large">
     <p>Bamboo is a languange-independent encoding, library, and toolset for
     defining network behavior using object-oriented design.</p>
-
-    <p>You can sort of think of it like an
-    <a href="https://en.wikipedia.org/wiki/Object-relational_mapping">ORM</a> for networking
-    <span class="text-muted">[an ONM? <i class="fa fa-smile-o text-secondary"></i>]</span>:
+    <p>There are a couple good ways to approach Bamboo...</p>
 
     <figure class="orm-as-onm">
+      <p class="large">
+        You can think of it like an <br />
+        <a href="https://en.wikipedia.org/wiki/Object-relational_mapping">ORM</a>
+        for networking
+      </p>
+
       <p>
         instead of mapping <br />
         <span class="text-as-obj">object-data</span>
         <span class="text-muted">to</span>
         <span class="text-as-sql">database columns</span>
-        and
+        <br />
         <span class="text-as-obj">method-calls</span>
         <span class="text-muted">to</span>
-        <span class="text-as-sql">SQL</span>
+        <span class="text-as-sql">SQL queries</span>
       </p>
 
       <p>
@@ -35,16 +38,33 @@
         <span class="text-as-obj">object-data</span>
         <span class="text-muted">to</span>
         <span class="text-as-net">sync messages</span>
-        and
+        <br />
         <span class="text-as-obj">method-calls</span>
         <span class="text-muted">to</span>
-        <span class="text-as-net">RPCs</span>
+        <span class="text-as-net">remote procedure calls</span>
       </p>
 
       <!-- Add just a little space here till we have something else to say -->
       <br />
 
     </figure>
+
+    <figure class="protocol-definition">
+      <p class="large">
+        Or you can use it as <br />
+        protocol definition language
+      </p>
+
+      <pre><code class="lang-dcf"><span class="d1">dclass</span> DistributedWorld {
+  <span class="p1">createAvatar</span>(<span class="t1">channel</span> client) <span class="k2">airecv</span>;
+};
+
+<span class="d1">dclass</span> DistributedAvatar {
+  <span class="p1">setXYZ</span>(<span class="t1">int16</span>, <span class="t1">int16</span>, <span class="t1">int16</span>) <span class="k2">broadcast</span>;
+  <span class="p1">indicateIntent</span>(<span class="t1">int16</span>, <span class="t1">int16</span>);
+};</code></pre>
+    </figure>
+
   </div>
 </div>
 
