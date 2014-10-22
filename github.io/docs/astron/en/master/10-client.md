@@ -1,8 +1,8 @@
 Client Protocol
 ===============
-**Authors**  
-_Sam "CFSworks" Edwards (09-17-2013)_  
-_Kevin "Kestred" Stenerson (10-08-2013)_  
+**Authors**
+_Sam "CFSworks" Edwards (09-17-2013)_
+_Kevin "Kestred" Stenerson (10-08-2013)_
 
 
 ## Section 0: Abstract ##
@@ -109,7 +109,7 @@ in order to accomplish various normal game tasks.
 
 **CLIENT_ENTER_OBJECT_REQUIRED_OTHER (143)**
 
-    uint32 do_id, uint32 parent_id, uint32 zone_id, uint16 dclass_id, <REQUIRED>, <OTHER> 
+    uint32 do_id, uint32 parent_id, uint32 zone_id, uint16 dclass_id, <REQUIRED>, <OTHER>
 
 > Inform the client of an object entering one of the client's interests.
 >
@@ -145,7 +145,7 @@ in order to accomplish various normal game tasks.
     uint32 do_id, uint16 field_id, <VALUE>
 
 > This is sent either by the Client Agent or the client to issue a field update
-> on a given object. The format of this message is analogous to 
+> on a given object. The format of this message is analogous to
 > `STATESERVER_OBJECT_SET_FIELD` in the internal protocol.
 
 **CLIENT_OBJECT_SET_FIELDS (121)**
@@ -182,7 +182,7 @@ in order to accomplish various normal game tasks.
 
 ### Section 3.2: Client Interest Messages ###
 
-**CLIENT_ADD_INTEREST (200)**  
+**CLIENT_ADD_INTEREST (200)**
 
     uint32 context, uint16 interest_id, uint32 parent_id, uint32 zone_id
 
@@ -233,7 +233,7 @@ in order to accomplish various normal game tasks.
 ## Section 4: Disconnect reasons ##
 
 This section lists out a few of the disconnect reasons that the Client Agent
-may give in a `CLIENT_GO_GET_LOST` message, as well as a brief explanation for
+may give in a `CLIENT_EJECT` message, as well as a brief explanation for
 each.
 
 ### Section 4.1: CA disconnect reasons ###
