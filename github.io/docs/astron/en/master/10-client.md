@@ -1,8 +1,8 @@
 Client Protocol
 ===============
-**Authors**
-_Sam "CFSworks" Edwards (09-17-2013)_
-_Kevin "Kestred" Stenerson (10-08-2013)_
+**Authors**  
+_Sam "CFSworks" Edwards (09-17-2013)_  
+_Kevin "Kestred" Stenerson (10-08-2013)_  
 
 
 ## Section 0: Abstract ##
