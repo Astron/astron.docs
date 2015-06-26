@@ -38,6 +38,7 @@ Astron also depends on a couple third party libraries:
 
  - boost 1.55+
  - libyaml-cpp 0.5+
+ - OpenSSL 1.0.1+
 
 Get the boost library from [here](http://www.boost.org/users/download/), or
 install from a package on linux or OS X (with [Homebrew](http://brew.sh/)).
