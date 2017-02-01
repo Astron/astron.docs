@@ -63,11 +63,12 @@ field id.  Astron will always broadcast fields in that order.
 
 Example DC Class:
 
-    dclass DistributedAvatar
+    dclass DistributedAvatar {
         name(string n) required db;  // ID = 0 | Value = "Throgdar"
         x(uint64 x) broadcast ram;   // ID = 1 | Value = 5
         y(uint64 y) broadcast ram;   // ID = 2 | No Value
         z(uint64 z) broadcast ram;   // ID = 3 | Value = 0
+    }
 
 Serialized form:
 
